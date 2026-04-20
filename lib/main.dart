@@ -1,3 +1,4 @@
+import 'package:desenvolvimento_flutter_iniciante/dependencies/injector.dart';
 import 'package:desenvolvimento_flutter_iniciante/models/pessoa.dart';
 import 'package:desenvolvimento_flutter_iniciante/widgets/lista_pessoas.dart';
 import 'package:desenvolvimento_flutter_iniciante/widgets/pessoa_listtile.dart';
@@ -7,6 +8,7 @@ import 'package:desenvolvimento_flutter_iniciante/pages/home_page.dart';
 import 'package:desenvolvimento_flutter_iniciante/routes/router.dart';
 import 'package:desenvolvimento_flutter_iniciante/routes/routes.dart';
 void main() {
+  injector(); //injeção de dependencia.
   runApp(const MyApp());
 }
 

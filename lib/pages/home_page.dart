@@ -1,3 +1,4 @@
+import 'package:desenvolvimento_flutter_iniciante/controller/pessoa_controller.dart';
 import 'package:desenvolvimento_flutter_iniciante/extensions/extensions.dart';
 import 'package:desenvolvimento_flutter_iniciante/models/criar_pessoa_dto.dart';
 import 'package:desenvolvimento_flutter_iniciante/models/pessoa.dart';
@@ -5,6 +6,7 @@ import 'package:desenvolvimento_flutter_iniciante/pages/criar_pessoa_page.dart';
 import 'package:desenvolvimento_flutter_iniciante/routes/routes.dart';
 import 'package:desenvolvimento_flutter_iniciante/widgets/lista_pessoas.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,7 +17,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> { 
   
-  List<Pessoa> pessoas = [];//Aula da lista. Para cadastrar uma lista.
+  //List<Pessoa> pessoas = [];//Aula da lista. Para cadastrar uma lista.
+  //final PessoaController pessoaController = PessoaController(); //Substituido o codigo de cima pelo controlador. Em pessoa_controller.dart.
+    final pessoaController = GetIt.instance<PessoaController>();//Injeção de dependencia.
+
+  @override
+  void initState() {//Injeção de dependencia.
+    pessoaController.addListener(() {
+      setState(() {});
+    });
+    super.initState();//Injeção de dependencia.
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +37,13 @@ class _HomePageState extends State<HomePage> {
         title: Text("Meu primeiro App."),
       ),
       body: ListaPessoas( //Aula da lista. Para cadastrar uma lista.
-        pessoas: pessoas,
-        onDeletePessoa: (pessoa) {
-          pessoas.remove(pessoa);
-          setState(() {});//Aula da lista. Para cadastrar uma lista.
-        },
+        //pessoas: pessoas,
+        pessoas: pessoaController.pessoas,//Substituido o codigo de cima pelo controlador. Em pessoa_controller.
+        // onDeletePessoa: (pessoa) {
+        //   //pessoas.remove(pessoa);
+        //   pessoaController.removerPessoa(pessoa);//Substituido o codigo de cima pelo controlador. Em pessoa_controller.
+        //   setState(() {});//Aula da lista. Para cadastrar uma lista.
+        // },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.greenAccent,
@@ -37,16 +52,19 @@ class _HomePageState extends State<HomePage> {
               await Navigator.of(context).pushNamed(Routes.criarPessoaPage);
 
           if (result != null) {
-            final pessoaDto = result as CriarPessoDto;
+            // final pessoaDto = result as CriarPessoaDto;
 
-            final pessoa = Pessoa(
-              id: pessoas.length + 1,
-              nome: pessoaDto.nome,
-              altura: pessoaDto.altura,
-              peso: pessoaDto.peso,
-            );
+            // final pessoa = Pessoa(
+            //   id: pessoas.length + 1,
+            //   nome: pessoaDto.nome,
+            //   altura: pessoaDto.altura,
+            //   peso: pessoaDto.peso,
+            // );
 
-            pessoas.add(pessoa);
+            // pessoas.add(pessoa);
+            // setState(() {});
+             final pessoaDto = result as CriarPessoaDto;//Substituido o codigo de cima pelo controlador. Em pessoa_controller.
+            pessoaController.adicionarPessoa(pessoaDto);
             setState(() {});
           }
 

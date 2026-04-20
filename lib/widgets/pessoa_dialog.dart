@@ -1,20 +1,24 @@
+import 'package:desenvolvimento_flutter_iniciante/controller/pessoa_controller.dart';
 import 'package:desenvolvimento_flutter_iniciante/extensions/extensions.dart';
 import 'package:desenvolvimento_flutter_iniciante/models/pessoa.dart';
 import 'package:desenvolvimento_flutter_iniciante/widgets/default_dialog_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class PessoaDialog extends StatelessWidget {
-   final void Function(Pessoa pessoa) onDeletePessoa;//Aula da lista. Para deletar uma lista.Somente essa linha
+   //final void Function(Pessoa pessoa) onDeletePessoa;//Aula da lista. Para deletar uma lista.Somente essa linha
   final Pessoa pessoa;
   const PessoaDialog({
     super.key,
     required this.pessoa,
-    required this.onDeletePessoa,//Aula da lista. Para deletar uma lista. Somente essa linha.
+    //required this.onDeletePessoa,//Aula da lista. Para deletar uma lista. Somente essa linha.
   });
 
   @override
   Widget build(BuildContext context) {
+    final pessoaController = GetIt.instance<PessoaController>();//injeção de dependencia.
     return AlertDialog(
+       
       actions: [//Ao inves de colocar no final o actions permite que coloque no topo mas que os itens ficam no final.
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -24,7 +28,8 @@ class PessoaDialog extends StatelessWidget {
                  // ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               onPressed: () {
-                onDeletePessoa(pessoa); //Aula da lista. Para deletar uma lista. Somente essa linha.
+                //onDeletePessoa(pessoa); //Aula da lista. Para deletar uma lista. Somente essa linha.
+                pessoaController.removerPessoa(pessoa); //Injeção de dependencia. Substitui o codigo de cima.
                 Navigator.of(context).pop();
               },
               child: Text(

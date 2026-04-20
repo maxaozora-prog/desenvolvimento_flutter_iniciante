@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 class ListaPessoas extends StatelessWidget {
   //const ListaPessoas({super.key});
    final List<Pessoa> pessoas;//Aula da lista. Para deletar uma lista.
-  final void Function(Pessoa pessoa) onDeletePessoa;
+  //final void Function(Pessoa pessoa) onDeletePessoa;
   const ListaPessoas({
     super.key,
     required this.pessoas,
-    required this.onDeletePessoa,//Aula da lista. Para deletar uma lista.
+    //required this.onDeletePessoa,//Aula da lista. Para deletar uma lista.
   });
 
   @override
@@ -35,7 +35,7 @@ class ListaPessoas extends StatelessWidget {
         
         return CustomPersonTile(//Aula da lista. Para deletar uma lista.
           pessoa: pessoas[index],
-          onDeletePessoa: onDeletePessoa,//Aula da lista. Para deletar uma lista.
+          //onDeletePessoa: onDeletePessoa,//Aula da lista. Para deletar uma lista.
         );
       },
     );
