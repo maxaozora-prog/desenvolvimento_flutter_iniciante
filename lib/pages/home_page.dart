@@ -1,0 +1,72 @@
+import 'package:desenvolvimento_flutter_iniciante/extensions/extensions.dart';
+import 'package:desenvolvimento_flutter_iniciante/models/criar_pessoa_dto.dart';
+import 'package:desenvolvimento_flutter_iniciante/models/pessoa.dart';
+import 'package:desenvolvimento_flutter_iniciante/pages/criar_pessoa_page.dart';
+import 'package:desenvolvimento_flutter_iniciante/routes/routes.dart';
+import 'package:desenvolvimento_flutter_iniciante/widgets/lista_pessoas.dart';
+import 'package:flutter/material.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+@override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> { 
+  
+  List<Pessoa> pessoas = [];//Aula da lista. Para cadastrar uma lista.
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Meu primeiro App."),
+      ),
+      body: ListaPessoas( //Aula da lista. Para cadastrar uma lista.
+        pessoas: pessoas,
+        onDeletePessoa: (pessoa) {
+          pessoas.remove(pessoa);
+          setState(() {});//Aula da lista. Para cadastrar uma lista.
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.greenAccent,
+         onPressed: () async {//Aula da lista. Para cadastrar uma lista.
+          final result =
+              await Navigator.of(context).pushNamed(Routes.criarPessoaPage);
+
+          if (result != null) {
+            final pessoaDto = result as CriarPessoDto;
+
+            final pessoa = Pessoa(
+              id: pessoas.length + 1,
+              nome: pessoaDto.nome,
+              altura: pessoaDto.altura,
+              peso: pessoaDto.peso,
+            );
+
+            pessoas.add(pessoa);
+            setState(() {});
+          }
+
+          print("resultado: $result");//Aula da lista. Para cadastrar uma lista.
+          // context.pushNamed(Routes.criarPessoaPage);
+          //Navigator.pushNamed(context, Routes.novaPagina); //As 3 linhas são a mesma coisa.
+          // Navigator.of(context).pushNamed(Routes.novaPagina);
+          //context.pushNamed(Routes.criarPessoaPage); //Pega a rota do router.dart. Essa linha de codigo foi diminuida por causa do extension criado em extensions.dart.
+
+          // Navigator.of(context).pushAndRemoveUntil( //O pushAndRemoveUntil remove a rota de navegação, não deixa pilha, não tem como dar um navigator.pop e voltar nele.
+          //   MaterialPageRoute(
+          //     builder: (context) {
+          //       return NovaPagina();
+          //     },
+          //   ),
+          //   (route) => false,
+          // );
+        },
+        child: Icon(Icons.navigate_next),
+      ),
+    );
+  }
+}
