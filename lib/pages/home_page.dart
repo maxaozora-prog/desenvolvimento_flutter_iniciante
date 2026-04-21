@@ -36,9 +36,16 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Meu primeiro App."),
       ),
-      body: ListaPessoas( //Aula da lista. Para cadastrar uma lista.
+         body: ListenableBuilder(//Para ourvir as mudanças.Injeção de dependencia. Ele apaga os valores da memoria automaticamente.
+        listenable: pessoaController,
+        builder: (context, child) {
+          return ListaPessoas(
+            pessoas: pessoaController.pessoas,
+          );
+        },
+      //body: ListaPessoas( //Aula da lista. Para cadastrar uma lista.
         //pessoas: pessoas,
-        pessoas: pessoaController.pessoas,//Substituido o codigo de cima pelo controlador. Em pessoa_controller.
+        //pessoas: pessoaController.pessoas,//Substituido o codigo de cima pelo controlador. Em pessoa_controller.
         // onDeletePessoa: (pessoa) {
         //   //pessoas.remove(pessoa);
         //   pessoaController.removerPessoa(pessoa);//Substituido o codigo de cima pelo controlador. Em pessoa_controller.
@@ -47,44 +54,50 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.greenAccent,
-         onPressed: () async {//Aula da lista. Para cadastrar uma lista.
-          final result =
-              await Navigator.of(context).pushNamed(Routes.criarPessoaPage);
+         onPressed: () {
+          Navigator.of(context).pushNamed(Routes.criarPessoaPage);},
+        //  onPressed: () async {//Aula da lista. Para cadastrar uma lista.
+        //   final result =
+        //       await Navigator.of(context).pushNamed(Routes.criarPessoaPage);
 
-          if (result != null) {
-            // final pessoaDto = result as CriarPessoaDto;
+        //   if (result != null) {
+        //     // final pessoaDto = result as CriarPessoaDto;
 
-            // final pessoa = Pessoa(
-            //   id: pessoas.length + 1,
-            //   nome: pessoaDto.nome,
-            //   altura: pessoaDto.altura,
-            //   peso: pessoaDto.peso,
-            // );
+        //     // final pessoa = Pessoa(
+        //     //   id: pessoas.length + 1,
+        //     //   nome: pessoaDto.nome,
+        //     //   altura: pessoaDto.altura,
+        //     //   peso: pessoaDto.peso,
+        //     // );
 
-            // pessoas.add(pessoa);
-            // setState(() {});
-             final pessoaDto = result as CriarPessoaDto;//Substituido o codigo de cima pelo controlador. Em pessoa_controller.
-            pessoaController.adicionarPessoa(pessoaDto);
-            setState(() {});
-          }
+        //     // pessoas.add(pessoa);
+        //     // setState(() {});
+        //      final pessoaDto = result as CriarPessoaDto;//Substituido o codigo de cima pelo controlador. Em pessoa_controller.
+        //     pessoaController.adicionarPessoa(pessoaDto);
+        //     setState(() {});
+        //   }
 
-          print("resultado: $result");//Aula da lista. Para cadastrar uma lista.
-          // context.pushNamed(Routes.criarPessoaPage);
-          //Navigator.pushNamed(context, Routes.novaPagina); //As 3 linhas são a mesma coisa.
-          // Navigator.of(context).pushNamed(Routes.novaPagina);
-          //context.pushNamed(Routes.criarPessoaPage); //Pega a rota do router.dart. Essa linha de codigo foi diminuida por causa do extension criado em extensions.dart.
+        //   print("resultado: $result");//Aula da lista. Para cadastrar uma lista.
+        //   // context.pushNamed(Routes.criarPessoaPage);
+        //   //Navigator.pushNamed(context, Routes.novaPagina); //As 3 linhas são a mesma coisa.
+        //   // Navigator.of(context).pushNamed(Routes.novaPagina);
+        //   //context.pushNamed(Routes.criarPessoaPage); //Pega a rota do router.dart. Essa linha de codigo foi diminuida por causa do extension criado em extensions.dart.
 
-          // Navigator.of(context).pushAndRemoveUntil( //O pushAndRemoveUntil remove a rota de navegação, não deixa pilha, não tem como dar um navigator.pop e voltar nele.
-          //   MaterialPageRoute(
-          //     builder: (context) {
-          //       return NovaPagina();
-          //     },
-          //   ),
-          //   (route) => false,
-          // );
-        },
+        //   // Navigator.of(context).pushAndRemoveUntil( //O pushAndRemoveUntil remove a rota de navegação, não deixa pilha, não tem como dar um navigator.pop e voltar nele.
+        //   //   MaterialPageRoute(
+        //   //     builder: (context) {
+        //   //       return NovaPagina();
+        //   //     },
+        //   //   ),
+        //   //   (route) => false,
+        //   // );
+        // },
         child: Icon(Icons.navigate_next),
       ),
     );
+  }
+
+  void dispose() {
+    super.dispose();
   }
 }

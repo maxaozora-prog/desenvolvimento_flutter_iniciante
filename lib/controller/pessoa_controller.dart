@@ -6,7 +6,7 @@ class PessoaController extends ChangeNotifier{ //ChangeNotifier para injeção d
   List<Pessoa> _pessoas = [];
   List<Pessoa> get pessoas => _pessoas;
 
-  void adicionarPessoa(CriarPessoaDto criarPessoa) {
+  void adicionarPessoa(CriarPessoaDto criarPessoa) {//CriarPessoaDto vem do criar_pessoa_dto.dart.
     final pessoa = Pessoa(
       id: _pessoas.length + 1,
       nome: criarPessoa.nome,
@@ -15,6 +15,7 @@ class PessoaController extends ChangeNotifier{ //ChangeNotifier para injeção d
     );
 
     _pessoas.add(pessoa);
+    notifyListeners(); //Notifica os ouvintes que ouve uma mudança. Para atualizar a tela.
   }
 
   void removerPessoa(Pessoa pessoa) {

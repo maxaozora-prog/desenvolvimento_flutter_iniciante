@@ -1,6 +1,8 @@
+import 'package:desenvolvimento_flutter_iniciante/controller/pessoa_controller.dart';
 import 'package:desenvolvimento_flutter_iniciante/models/criar_pessoa_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 
 class CriarPessoaPage extends StatefulWidget {
   const CriarPessoaPage({super.key});
@@ -15,6 +17,7 @@ class _CriarPessoaPageState extends State<CriarPessoaPage> {
   final pesoController = TextEditingController();
   final alturaController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+   final pessoaController = GetIt.instance<PessoaController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +105,9 @@ class _CriarPessoaPageState extends State<CriarPessoaPage> {
                             peso: double.parse(
                                 pesoController.text.replaceAll(",", ".")), //Substitui a virgula pelo ponto porque o double nao aceita virgula.
                           );
-                             Navigator.of(context).pop(criarPessoa); //COloca a variavel que recebe o objeto CriarPessoDto dentro.
+                             //Navigator.of(context).pop(criarPessoa); //COloca a variavel que recebe o objeto CriarPessoDto dentro.
+                              pessoaController.adicionarPessoa(criarPessoa);//Substitui o codigo de cima. Injeção de dependencia.
+                              Navigator.of(context).pop();
                         }
                       },
                       child: Text("Salvar"),
