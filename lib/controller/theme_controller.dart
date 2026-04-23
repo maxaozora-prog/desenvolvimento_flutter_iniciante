@@ -10,9 +10,13 @@ class ThemeController extends ChangeNotifier {
     required this.sharedPreferences,
   });
 
+  ValueNotifier<String> mensagemNotifier = ValueNotifier("");
+
   void toggleTheme(bool value) async {
     darkTheme = !darkTheme;
     await sharedPreferences.setBool("theme", darkTheme);//Vai salvar o valor boleano. No caso vai salvar o darktheme com o nome da chave theme.
+     mensagemNotifier.value = //ValueNotifier.
+        "Tema mudado para ${darkTheme ? 'escuro' : 'claro'}."; 
     notifyListeners();
   }
 

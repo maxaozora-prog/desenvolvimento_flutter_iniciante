@@ -24,11 +24,22 @@ class _HomePageState extends State<HomePage> {
     final ThemeController themeController = GetIt.instance<ThemeController>();
   @override
   void initState() {//Injeção de dependencia.
+   themeController.mensagemNotifier.addListener(_onThemeMensagem);//ValueNotifier.
+   pessoaController.mensagemNotifier.addListener(_onPessoaMensagem);//ValueNotifier.
     pessoaController.addListener(() {
       setState(() {});
     });
     super.initState();//Injeção de dependencia.
   }
+  
+  void _onPessoaMensagem() {//ValueNotifier.
+    print(pessoaController.mensagemNotifier.value);
+  }
+
+  void _onThemeMensagem() {//ValueNotifier.
+    print(themeController.mensagemNotifier.value);
+  }
+
 
 
   @override
@@ -114,5 +125,7 @@ class _HomePageState extends State<HomePage> {
 
   void dispose() {
     super.dispose();
+      pessoaController.mensagemNotifier.removeListener(_onPessoaMensagem);//ValueNotifier.
+    themeController.mensagemNotifier.removeListener(_onThemeMensagem);//ValueNotifier.
   }
 }

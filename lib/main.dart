@@ -13,7 +13,7 @@ import 'package:desenvolvimento_flutter_iniciante/routes/routes.dart';
 //   runApp(const MyApp());
 // }
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();// Para o sharedPreferences funcionar.
   await injector();
   runApp(const MyApp());
 }
