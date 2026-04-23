@@ -1,4 +1,5 @@
 import 'package:desenvolvimento_flutter_iniciante/controller/pessoa_controller.dart';
+import 'package:desenvolvimento_flutter_iniciante/controller/theme_controller.dart';
 import 'package:desenvolvimento_flutter_iniciante/extensions/extensions.dart';
 import 'package:desenvolvimento_flutter_iniciante/models/criar_pessoa_dto.dart';
 import 'package:desenvolvimento_flutter_iniciante/models/pessoa.dart';
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   //List<Pessoa> pessoas = [];//Aula da lista. Para cadastrar uma lista.
   //final PessoaController pessoaController = PessoaController(); //Substituido o codigo de cima pelo controlador. Em pessoa_controller.dart.
     final pessoaController = GetIt.instance<PessoaController>();//Injeção de dependencia.
-
+    final ThemeController themeController = GetIt.instance<ThemeController>();
   @override
   void initState() {//Injeção de dependencia.
     pessoaController.addListener(() {
@@ -33,6 +34,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: Drawer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Switch(
+              value: themeController.darkTheme,
+              onChanged: (value) {
+                themeController.toggleTheme(value);
+              },
+            ),
+            Text("Tema escuro")
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text("Meu primeiro App."),
       ),
