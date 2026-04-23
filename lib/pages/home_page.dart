@@ -5,6 +5,7 @@ import 'package:desenvolvimento_flutter_iniciante/models/criar_pessoa_dto.dart';
 import 'package:desenvolvimento_flutter_iniciante/models/pessoa.dart';
 import 'package:desenvolvimento_flutter_iniciante/pages/criar_pessoa_page.dart';
 import 'package:desenvolvimento_flutter_iniciante/routes/routes.dart';
+import 'package:desenvolvimento_flutter_iniciante/states/messages_states.dart';
 import 'package:desenvolvimento_flutter_iniciante/widgets/lista_pessoas.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -34,24 +35,61 @@ class _HomePageState extends State<HomePage> {
   
   void _onPessoaMensagem() {//ValueNotifier.
     print(pessoaController.mensagemNotifier.value);
-     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.green,
-        content: Text(pessoaController.mensagemNotifier.value),
-      ),
-    );
+
+    //Snackbar.
+    //  ScaffoldMessenger.of(context).clearSnackBars();
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     backgroundColor: Colors.green,
+    //     content: Text(pessoaController.mensagemNotifier.value),
+    //   ),
+    // );
+    final value = pessoaController.mensagemNotifier.value;
+
+    if (value is SuccessMessage) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(value.message),
+        ),
+      );
+    } else if (value is ErrorMessage) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(value.message),
+        ),
+      );
+    }
   }
 
   void _onThemeMensagem() {//ValueNotifier.
     print(themeController.mensagemNotifier.value);
-     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.green,
-        content: Text(themeController.mensagemNotifier.value),
-      ),
-    );
+
+    //Snackbar.
+    //  ScaffoldMessenger.of(context).clearSnackBars();
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     backgroundColor: Colors.green,
+    //     content: Text(themeController.mensagemNotifier.value),
+    //   ),
+    // );
+        final value = themeController.mensagemNotifier.value;
+    if (value is SuccessMessage) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(value.message),
+        ),
+      );
+    } else if (value is ErrorMessage) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(value.message),
+        ),
+      );
+    }
   }
 
 
